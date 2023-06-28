@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>標準差計算</title>
+    <meta charset="UTF-8">
     <style>
         body {
             text-align: center;
@@ -70,19 +71,15 @@
             var largeAverage = calculateAverage(largeScores);
             var smallAverage = calculateAverage(smallScores);
 
-            // 比較大小指數的標準差
-            var riskComparison = '';
-            if (largeStandardDeviation < smallStandardDeviation) {
-                riskComparison = '大分指數的風險較小';
-            } else if (largeStandardDeviation > smallStandardDeviation) {
-                riskComparison = '小分指數的風險較小';
-            } else {
-                riskComparison = '大小指數的風險相同';
-            }
+            // 計算大小指數標準差的差異
+            var sdDifference = largeStandardDeviation - smallStandardDeviation;
+
+            // 判斷風險較小的指數
+            var riskComparison = sdDifference > 0 ? "小分指數的風險較小" : sdDifference < 0 ? "大分指數的風險較小" : "兩者風險相等";
 
             // 將計算結果呈現在結果區域
             var resultDiv = document.getElementById("result");
-            resultDiv.innerHTML = "計算結果：<br>大分指數的標準差 = " + largeStandardDeviation.toFixed(4) + "<br>小分指數的標準差 = " + smallStandardDeviation.toFixed(4) + "<br>大分指數的平均值 = " + largeAverage.toFixed(4) + "<br>小分指數的平均值 = " + smallAverage.toFixed(4) + "<br>風險比較結果：" + riskComparison;
+            resultDiv.innerHTML = "計算結果：<br>大分指數的標準差 = " + largeStandardDeviation.toFixed(4) + "<br>小分指數的標準差 = " + smallStandardDeviation.toFixed(4) + "<br>大分指數的平均值 = " + largeAverage.toFixed(4) + "<br>小分指數的平均值 = " + smallAverage.toFixed(4) + "<br>大小指數標準差差異 = " + sdDifference.toFixed(4) + "<br>風險比較結果： " + riskComparison;
         }
 
         function parseScores(scoresInput) {
